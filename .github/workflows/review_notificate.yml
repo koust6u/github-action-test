@@ -15,8 +15,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Send Slack notification
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: slackapi/slack-github-action@v1.22.0
         with:
           channel-id: 'C07DN3TETSL'
@@ -28,10 +26,12 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@$SLACK_UID> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "text": "<@$GITHUB_UID> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
             }
             env:
-              SLACK_UID: ${{format('{0}', github.event.pull_request.user.login)}}
+              SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+              GITHUB_UID: ${{ github.event.pull_request.user.login }}
+    
