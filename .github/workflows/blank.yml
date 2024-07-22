@@ -3,8 +3,6 @@ name: TEST_CI
 on:
   push:
     branches: [ "BE/dev/**" ]
-  pull_request:
-    branches: [ "main" ]
 
 
 jobs:
