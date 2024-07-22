@@ -43,7 +43,7 @@ jobs:
           payload: |
             {
               "thread_ts": "${{ steps.review_command.outputs.ts }}",
-              "text": "${{ steps.deployment_message.outputs.ts }}"
+              "text": "${{ steps.review_command.outputs }}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
