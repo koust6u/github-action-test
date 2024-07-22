@@ -36,14 +36,3 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           GITHUB_UID: ${{ github.event.pull_request.user.login }}
           
-      - name: store ts
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          channel-id: 'C07DN3TETSL'
-          payload: |
-            {
-              "thread_ts": "${{ steps.review_command.outputs.ts }}",
-              "text": "${{ steps.review_command.outputs.ts }}"
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
