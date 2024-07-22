@@ -31,7 +31,7 @@ jobs:
                 }
               ]
             }
-            env:
-              SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-              GITHUB_UID: ${{ github.event.pull_request.user.login }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          GITHUB_UID: ${{ github.event.pull_request.user.login }}
     
