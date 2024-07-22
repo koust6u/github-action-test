@@ -33,7 +33,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name:  Backend code review
+      - name:  Front-end code review
         if: github.event.pull_request.base.ref == 'FE/dev'
         id: slack-fe
         uses: slackapi/slack-github-action@v1.26.0
