@@ -2,10 +2,9 @@ name: TEST_CI
 
 on:
   pull_request:
-    branches:
+    branches: 
       - BE/dev
       - FE/dev
-
 
 jobs:
   build:
