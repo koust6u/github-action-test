@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Send Slack notification
+      - id: review_command
         uses: slackapi/slack-github-action@v1.22.0
         with:
           channel-id: 'C07DN3TETSL'
@@ -41,8 +42,8 @@ jobs:
           channel-id: 'C07DN3TETSL'
           payload: |
             {
-              "thread_ts": "${{ steps.deployment_message.outputs.ts }}",
-              "text": "${{ steps.deployment_message.outputs.ts }}"
+              "thread_ts": "${{ steps.review_command.outputs.ts }}",
+              "text": "${{ steps.deployment_message.outputs }}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
