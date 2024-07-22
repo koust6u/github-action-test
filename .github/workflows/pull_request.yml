@@ -2,7 +2,7 @@ name: TEST_CI
 
 on:
   pull_request:
-    types: [opened, review_requested]
+    types: [opened]
     branches:
       - '**'
       - '!main'
@@ -72,28 +72,6 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "<@${{ github.event.requested_reviewer.login }}> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-      - name: Front-end review requested
-        if: github.event.pull_request.base.ref == 'FE/dev' && github.event.action == 'review_requested'
-        id: slack-fe-review-requested
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          channel-id: 'C07DN3TETSL'
-          payload: |
-            {
-              "text": "Code review requested for Front-end PR: ${{ github.event.pull_request.html_url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<@${{ github.event.requested_reviewer.login }}> Code review requested for Front-end PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
