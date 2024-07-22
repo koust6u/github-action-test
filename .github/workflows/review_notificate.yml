@@ -28,8 +28,10 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@$[format('{0}', github.event.pull_request.user.login)]> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "text": "<@$SLACK_UID> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
             }
+            env:
+              SLACK_UID: ${{[format('{0}', github.event.pull_request.user.login)]}}
