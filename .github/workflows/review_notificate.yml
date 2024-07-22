@@ -36,5 +36,13 @@ jobs:
           GITHUB_UID: ${{ github.event.pull_request.user.login }}
           
       - name: store ts
-        run: |
-           echo "${{ steps.deployment_message.outputs }}"
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: "CHANNEL_ID"
+          payload: |
+            {
+              "thread_ts": "${{ steps.deployment_message.outputs.ts }}",
+              "text": "${{ steps.deployment_message.outputs.ts }}"
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
