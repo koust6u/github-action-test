@@ -34,4 +34,4 @@ jobs:
               ]
             }
             env:
-              SLACK_UID: ${{[format('{0}', github.event.pull_request.user.login)]}}
+              SLACK_UID: ${{format('{0}', github.event.pull_request.user.login)}}
