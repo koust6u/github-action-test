@@ -3,6 +3,8 @@ name: Notify Slack on Pull Request Review Request
 on:
   pull_request_review:
 
+env:
+  koust6u: U07D1PWSLSG
 
  
 jobs:
@@ -26,7 +28,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@${{ secrets[format('{0}', github.event.pull_request.user.login)] }}> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "text": "<@$[format('{0}', github.event.pull_request.user.login)]> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
