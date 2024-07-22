@@ -38,7 +38,7 @@ jobs:
       - name: store ts
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          channel-id: "CHANNEL_ID"
+          channel-id: 'C07DN3TETSL'
           payload: |
             {
               "thread_ts": "${{ steps.deployment_message.outputs.ts }}",
