@@ -2,6 +2,7 @@ name: TEST_CI
 
 on:
   pull_request:
+    types: [opened, synchronize]
     branches: [ "BE/dev", "FE/dev" ]
 
 jobs:
