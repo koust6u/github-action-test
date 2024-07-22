@@ -1,0 +1,56 @@
+name: TEST_CI
+
+on:
+  pull_request:
+    types: [opened]
+    branches: [ "BE/dev", "FE/dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name:  Backend code review
+        if: github.event.pull_request.base.ref == 'BE/dev'
+        id: slack-be
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U07D1PWSLSG> \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name:  Front-end code review
+        if: github.event.pull_request.base.ref == 'FE/dev'
+        id: slack-fe
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U07D1PWSLSG> 프론드엔드\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
