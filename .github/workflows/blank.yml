@@ -2,8 +2,7 @@ name: TEST_CI
 
 on:
   pull_request:
-    types: [opened]
-    branches: [ "BE/dev", "FE/dev" ]
+    types: [opened, review_requested]
 
 jobs:
   build:
@@ -11,21 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name:  Backend code review
-        if: github.event.pull_request.base.ref == 'BE/dev'
-        id: slack-be
+      - name: Backend PR opened
+        if: github.event.pull_request.base.ref == 'BE/dev' && github.event.action == 'opened'
+        id: slack-be-pr-opened
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: 'C07DN3TETSL'
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "Backend PR opened: ${{ github.event.pull_request.html_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U07D1PWSLSG> \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "<@U07D1PWSLSG> Backend PR opened: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
@@ -33,21 +32,65 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name:  Front-end code review
-        if: github.event.pull_request.base.ref == 'FE/dev'
-        id: slack-fe
+      - name: Front-end PR opened
+        if: github.event.pull_request.base.ref == 'FE/dev' && github.event.action == 'opened'
+        id: slack-fe-pr-opened
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: 'C07DN3TETSL'
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "Front-end PR opened: ${{ github.event.pull_request.html_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U07D1PWSLSG> 프론드엔드\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "<@U07D1PWSLSG> Front-end PR opened: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Backend review requested
+        if: github.event.pull_request.base.ref == 'BE/dev' && github.event.action == 'review_requested'
+        id: slack-be-review-requested
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "Code review requested for Backend PR: ${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@${{ github.event.requested_reviewer.login }}> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Front-end review requested
+        if: github.event.pull_request.base.ref == 'FE/dev' && github.event.action == 'review_requested'
+        id: slack-fe-review-requested
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "Code review requested for Front-end PR: ${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@${{ github.event.requested_reviewer.login }}> Code review requested for Front-end PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
