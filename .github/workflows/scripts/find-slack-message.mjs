@@ -12,8 +12,9 @@ import { context } from "@actions/github";
       issue_number: context.payload.pull_request.number
     });
 
+    console.log("Comments:", comments);
     const slackMessage = comments.find(comment => comment.body.includes(context.payload.pull_request.html_url));
-
+    console.log("slackMessage:", slackMessage);
     if (slackMessage) {
       setOutput('result', slackMessage.id);
     } else {
