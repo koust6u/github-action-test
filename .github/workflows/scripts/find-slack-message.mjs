@@ -14,7 +14,7 @@ import { context } from "@actions/github";
 
     console.log("Comments:", comments);
     const slackMessage = comments.find(comment => comment.body.includes(context.payload.pull_request.html_url));
-    console.log("slackMessage:", slackMessage);
+    console.error("slackMessage:", slackMessage);
     if (slackMessage) {
       setOutput('result', slackMessage.id);
     } else {
