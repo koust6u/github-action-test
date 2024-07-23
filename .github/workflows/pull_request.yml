@@ -57,25 +57,3 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-      - name: Backend review requested
-        if: github.event.pull_request.base.ref == 'BE/dev' && github.event.action == 'review_requested'
-        id: slack-be-review-requested
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          channel-id: 'C07DN3TETSL'
-          payload: |
-            {
-              "text": "Code review requested for Backend PR: ${{ github.event.pull_request.html_url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<@${{ github.event.requested_reviewer.login }}> Code review requested for Backend PR: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
