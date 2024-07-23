@@ -23,7 +23,7 @@ jobs:
         run: npm install @octokit/rest
 
       - name: Find Slack Message for PR
-        run: node find-slack-message.mjs
+        run: node .github/scripts/find-slack-message.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
