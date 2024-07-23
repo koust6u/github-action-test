@@ -53,7 +53,8 @@ jobs:
                     "text": "<@U07D1PWSLSG> Front-end PR opened: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
-              ]
+              ],
+              "thread_ts" : "${{ github.event.pull_request.html_url}}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
