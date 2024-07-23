@@ -27,6 +27,7 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "<@${{ env[format('{0}', env.GITHUB_UID)] }}>님 PR에 대한 리뷰가 도착했어요.📫\n  <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "ts": "${{github.pull_request.created_at}}"
                   }
                 }
               ]
