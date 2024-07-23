@@ -9,7 +9,7 @@ import { context } from "@actions/github";
     const { data: comments } = await octokit.issues.listComments({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      issue_number: context.payload.pull_request
+      issue_number: context.payload.pull_request.number
     });
 
     const slackMessage = comments.find(comment => comment.body.includes(context.payload.pull_request.html_url));
