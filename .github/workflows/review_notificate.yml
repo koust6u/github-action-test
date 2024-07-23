@@ -23,6 +23,7 @@ jobs:
         run: |
           npm install @octokit/rest
           npm install @actions/core @actions/github
+          npm install node-fetch@2
 
       - name: Find Slack Message for PR
         run: node .github/workflows/scripts/find-slack-message.mjs
