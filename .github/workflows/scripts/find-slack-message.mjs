@@ -11,6 +11,16 @@ const octokit = new Octokit({
 
 (async () => {
   try {
+    // 콘텍스트 출력
+    console.log("Context Repo Owner:", github.context.repo.owner);
+    console.log("Context Repo Name:", github.context.repo.repo);
+    console.log("PR Number:", github.context.payload.pull_request?.number);
+
+    // PR 번호가 없는 경우 오류 처리
+    if (!github.context.payload.pull_request?.number) {
+      throw new Error("Pull request number is missing from the context payload.");
+    }
+
     // PR 정보 가져오기
     const { data: pullRequest } = await octokit.pulls.get({
       owner: github.context.repo.owner,
