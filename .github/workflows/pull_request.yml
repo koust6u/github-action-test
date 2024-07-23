@@ -1,0 +1,59 @@
+name: TEST_CI
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Backend PR opened
+        if: github.event.pull_request.base.ref == 'BE/dev' && github.event.action == 'opened'
+        id: slack-be-pr-opened
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "Backend PR opened: ${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U07D1PWSLSG> <@U07DF0QPUKV> <@U07E3T9PMA4> <@U07E3TG6CHE> PR 요청 왔어요. 코드 리뷰해주세요🔔: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Front-end PR opened
+        if: github.event.pull_request.base.ref == 'FE/dev' && github.event.action == 'opened'
+        id: slack-fe-pr-opened
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C07DN3TETSL'
+          payload: |
+            {
+              "text": "Front-end PR opened: ${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U07DC76UYJ1> <@U07E48NCK4G> PR 요청 왔어요. 코드 리뷰해주세요🔔: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                  }
+                }
+              ],
+              "thread_ts" : "${{ github.event.pull_request.html_url}}"
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
