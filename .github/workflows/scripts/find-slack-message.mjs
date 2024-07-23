@@ -20,6 +20,6 @@ import { context } from "@actions/github";
       setOutput('result', '');
     }
   } catch (error) {
-    setFailed(context.repo.issue_number);
+    setFailed(context.payload.pull_request.number);
   }
 })();
