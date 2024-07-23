@@ -27,7 +27,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U07D1PWSLSG> Backend PR opened: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "text": "<@U07D1PWSLSG> <@U07DF0QPUKV> <@U07E3T9PMA4> <@U07E3TG6CHE> PR 요청 왔어요. 코드 리뷰해주세요🔔: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ]
@@ -49,7 +49,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U07D1PWSLSG> Front-end PR opened: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    "text": "<@U07DC76UYJ1> <@U07E48NCK4G> PR 요청 왔어요. 코드 리뷰해주세요🔔: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
                   }
                 }
               ],
