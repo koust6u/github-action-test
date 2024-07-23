@@ -22,21 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install @octokit/rest
 
-      - name: Send Review Notification to Slack Thread
-        uses: actions/github-script@v6
-        id: find-slack-message
-        with:
-          script: |
-            const { Octokit } = require("@octokit/rest");
-            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-            const { data: comments } = await octokit.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number
-            });
-            const slackMessage = comments.find(comment => comment.body.includes(context.payload.pull_request.html_url));
-          return slackMessage ? slackMessage.id : null;
+      - name: Find Slack Message for PR
+        run: node find-slack-message.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
