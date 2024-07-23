@@ -20,6 +20,6 @@ import { context } from "@actions/github";
       setOutput('result', '');
     }
   } catch (error) {
-    setFailed(error.message);
+    setFailed(context);
   }
 })();
