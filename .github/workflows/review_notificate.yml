@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Install dependencies
+        run: npm install @octokit/rest
+
       - name: Send Review Notification to Slack Thread
         uses: actions/github-script@v6
         id: find-slack-message
